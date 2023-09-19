@@ -1,0 +1,27 @@
+{
+    "name": "secondtruth/startmin",
+    "description": "An admin dashboard template for Bootstrap",
+    "homepage": "http://www.secondtruth.de",
+    "keywords": ["backend", "admin", "dashboard", "template", "theme", "web"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Neff",
+            "email": "christian.neff@gmail.com",
+            "homepage": "https://secondtruth.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Ed Preston",
+            "email": "hello@prestonsoft.com",
+            "homepage": "https://prestonsoft.com",
+            "role": "Contributor"
+        },
+        {
+            "name": "David Miller",
+            "email": "hello@davidmiller.io",
+            "homepage": "https://davidmiller.io",
+            "role": "Original Author"
+        }
+    ]
+}
