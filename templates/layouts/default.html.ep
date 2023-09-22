@@ -160,9 +160,12 @@
 
 			    <ul class="nav nav-second-level">
    			     <li>
-				     <a href="#" class="active"><i class="fa"></i> add</a>
+				     <a href="#" class="active"><i class="fa"></i> Site Managment</a>
    			     </li>
-   			    </ul>
+   			     <li>
+				     <a href="#" class="active"><i class="fa"></i> Site Monitor</a>
+			     </li>
+			    </ul>
 			</li>
 			<li>
                             <a href="#"><i class="fa fa-align-left fa-fw"></i>Certificates<span class="fa arrow"></span></a>
@@ -190,7 +193,10 @@
 
                             <ul class="nav nav-second-level">
                              <li>
-                                     <a href="#" class="active"><i class="fa"></i> add</a>
+                                     <a href="#" class="active"><i class="fa"></i> Network</a>
+                             </li>
+			     <li>
+                                     <a href="#" class="active"><i class="fa"></i> Users</a>
                              </li>
                             </ul>
                         </li>
