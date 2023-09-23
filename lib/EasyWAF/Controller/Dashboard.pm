@@ -6,7 +6,8 @@ sub view ($self) {
 
   $self->render(template => 'easywaf/dashboard',
 	        username => 'admin',
-  		title => 'DashBoard');
+  		title => 'DashBoard',
+		url => '/');
 
 }
 

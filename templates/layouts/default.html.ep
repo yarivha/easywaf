@@ -84,14 +84,6 @@
                     </li>
                 </ul>
 		<ul class="nav navbar-right navbar-top-links">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-flag fa-fw"></i> <b class="caret"></b>
-                        </a>
-                    </li>
-                </ul>
-
-		<ul class="nav navbar-right navbar-top-links">
                     <li class="dropdown navbar-inverse">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa print fa-bars fa-fw"></i> <b class="caret"></b>
@@ -160,10 +152,10 @@
 
 			    <ul class="nav nav-second-level">
    			     <li>
-				     <a href="#" class="active"><i class="fa"></i> Site Managment</a>
+				     <a href="/sites" class="active"><i class="fa fa-globe"></i> Site Managment</a>
    			     </li>
    			     <li>
-				     <a href="#" class="active"><i class="fa"></i> Site Monitor</a>
+				     <a href="#" class="active"><i class="fa fa-bar-chart"></i> Site Monitor</a>
 			     </li>
 			    </ul>
 			</li>
@@ -193,10 +185,13 @@
 
                             <ul class="nav nav-second-level">
                              <li>
-                                     <a href="#" class="active"><i class="fa"></i> Network</a>
+                                     <a href="#" class="active"><i class="fa fa-usb"></i> Network</a>
                              </li>
 			     <li>
-                                     <a href="#" class="active"><i class="fa"></i> Users</a>
+                                     <a href="#" class="active"><i class="fa fa-users"></i> Users</a>
+                             </li>
+			     <li>
+                                     <a href="#" class="active"><i class="fa fa-cloud-download"></i> Update</a>
                              </li>
                             </ul>
                         </li>
@@ -211,7 +206,7 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-				<h1 class="page-header"><a href="#"><%= $title %></a></h1>
+				<h1 class="page-header"><a href="<%= $url %>"><%= $title %></a></h1>
                         </div>
                     </div>
 
