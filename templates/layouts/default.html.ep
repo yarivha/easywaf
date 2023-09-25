@@ -222,6 +222,26 @@
             </div>
 
         </div>
+	<!-- About Dialog -->
+	<div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+          <div class="modal-content">
+           <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">About</h4>
+           </div>
+           <div class="modal-body">
+            <h1><center>EasyWAF</center></h1><br>
+            <h3><center>Version 0.1.0</center></h3><br>
+            <center>Copyright &copy; 2023</center><br>
+            <h4><center><a href=\"https://www.easywaf.org\"  target=\"new\" >https://www.easywaf.org</a></center><h4>
+          </div>
+          <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+         </div>
+        </div>
+       </div>
 
         <!-- jQuery -->
         <script src="js/jquery.min.js"></script>
