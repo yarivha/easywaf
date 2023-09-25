@@ -42,6 +42,8 @@ sub view ($self) {
   $self->render(template => 'easywaf/sites');  
 }
 
+
+######## create_site #########
 sub create_site($self)
 {
  
@@ -50,15 +52,31 @@ sub create_site($self)
  my $server = $self->param("server");
  my $target = $self->param("target");
  my $port = $self->param("port");
+ my $protection1 = $self->param("protection1");
+ my $protection2 = $self->param("protection2");
+ my $protection3 = $self->param("protection3");
+ my $protection4 = $self->param("protection4");
 
  my $file=$sites_dir."/".$name.".conf";
  my $log="/var/log/nginx/".$name.".log";
-
+ print $protection1;
  `/bin/echo "#### $name ####" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "server {" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   listen $port;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   server_name $server;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   access_log $log;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ if ($protection1) {
+  `/bin/echo "   add_header Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\";" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }
+ if ($protection2) {
+  `/bin/echo "   add_header X-Frame-Options DENY;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }
+ if ($protection3) {
+  `/bin/echo "   add_header X-Content-Type-Options nosniff;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }
+ if ($protection4) {
+  `/bin/echo "   add_header X-XSS-Protection \"1; mode=block\";" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }
  `/bin/echo "   location / {" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "     proxy_pass $target;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   }" | /usr/bin/sudo /usr/bin/tee -a $file`;
@@ -68,6 +86,7 @@ sub create_site($self)
  if ($rc) {
    $result="failed";
    $msg="Site $name Failed to Create";
+   unlink($sites_dir."/".$name.".conf");
  }
  else {
    $result="success";
@@ -76,7 +95,7 @@ sub create_site($self)
  return;
 }
 
-
+########### delete_site #########
 sub delete_site($self) 
 {
  my $rc;
@@ -94,7 +113,7 @@ sub delete_site($self)
  return;
 }
 
-
+########## get_sites ##########
 sub get_sites
 {
 
