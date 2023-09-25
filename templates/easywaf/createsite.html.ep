@@ -15,17 +15,22 @@
          <div class="form-group">
           <label>Site Name</label>
           <input class="form-control" name="name">
-          <p class="help-block">Example block-level help text here.</p>
+          <p class="help-block">The referance name of the site.</p>
          </div>
          <div class="form-group">
-          <label>Protected URL</label>
-          <input class="form-control" name="url">
-          <p class="help-block">Example block-level help text here.</p>
+          <label>Server URL</label>
+          <input class="form-control" name="server">
+          <p class="help-block">WAF protected URL.</p>
+         </div>
+         <div class="form-group">
+          <label>Target URL</label>
+          <input class="form-control" name="target">
+          <p class="help-block">The original un-protected URL of the site.</p>
          </div>
          <div class="form-group">
           <label>Target Port</label>
           <input class="form-control" name="port">
-          <p class="help-block">Example block-level help text here.</p>
+          <p class="help-block">Listening port on the WAF.</p>
         </div>
         <div class="form-group">
          <label>Basic Protection</label>

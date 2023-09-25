@@ -46,19 +46,20 @@ sub create_site($self)
  
  my $rc;
  my $name = $self->param("name");
+ my $server = $self->param("server");
+ my $target = $self->param("target");
  my $port = $self->param("port");
- my $url = $self->param("url");
 
- my $file=$sites_dir."/".$name;
+ my $file=$sites_dir."/".$name.".conf";
  my $log="/var/log/nginx/".$name.".log";
 
  `/bin/echo "#### $name ####" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "server {" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   listen $port;" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "   server_name $url;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `/bin/echo "   server_name $server;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   access_log $log;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   location / {" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "     proxy_pass $url" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `/bin/echo "     proxy_pass $target;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   }" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "}" | /usr/bin/sudo /usr/bin/tee -a $file`;
 
