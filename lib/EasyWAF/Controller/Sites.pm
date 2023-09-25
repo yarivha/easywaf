@@ -16,16 +16,23 @@ sub view ($self) {
  	       title => 'Site Managment',
                url => '/sites');
 
+#----------- Create Site --------------  
+  if ($action eq "createsite") {
+    create_site($self);
+  }
+
+#---------- Delete Site ---------------
+  if ($action eq "deletesite") {
+    delete_site($self);
+  }
+
+
 #---------- create site menu -----------
   if ($action eq "createsitemenu") {
     $self->render(template => 'easywaf/createsite');	  
     return;
   } 
 
-#----------- Create Site --------------  
-  if ($action eq "createsite") {
-    create_site($self);
-  }
 #------------------- Menu --------------
   $self->stash(result => $result,
                msg => $msg,
@@ -68,22 +75,60 @@ sub create_site($self)
 }
 
 
+sub delete_site($self) 
+{
+ my $rc;
+ my $site = $self->param("site");
+ unlink($sites_dir."/".$site);
+ $rc = system("/usr/bin/sudo /usr/bin/systemctl restart nginx > /dev/null");
+ if ($rc) {
+   $result="failed";
+   $msg="Site $site Failed to Delete";
+ }
+ else {
+   $result="success";
+   $msg="Site $site Deleted Succesfully ";
+ }
+ return;
+}
+
+
 sub get_sites
 {
 
  my %sites;
  my $dir;
+ my $file;
+ my $line;
  my @files;
+ my @conf;
+ my $name;
+ my $server;
+ my $port;
+ my $url;
  opendir $dir, $sites_dir;
-  @files = readdir $dir;
+ @files = readdir $dir;
  closedir $dir;
  foreach (@files) {
-   if(($_ ne ".") && ($_ ne "..")) {
-    $sites{$_}=["$_","sdfsdfsdf","sfdsdfsdf","sfdsdfsfd"];
-   }
+  if(($_ ne ".") && ($_ ne "..")) {
+    $name=$_;
+    open $file, $sites_dir."/".$_;
+    while ($line = <$file>) {
+     if ($line =~ /server_name/i) {
+	(undef,$server)=split(" ",$line);
+	chop($server);
+     }
+     if ($line =~ /proxy_pass/i) {
+	(undef,$url)=split(" ",$line);
+	chop($url);
+     }
+    }   
+    close $file;
+    $sites{$_}=[$_,$server,$url,"sfdsdfsdf"];
+  }
+  $name="";
  }
  return (%sites);
-
 }
 
 1;

@@ -33,12 +33,12 @@
       <tbody>
 % foreach my $site (keys (%$sites)) {
         <tr>
-          <td><a href="?action=settingsmenu&site=<%= $site %>"><i class="fa fa-database fa-2x" title="Settings"></i></a></td>
+          <td><a href="?action=settingsmenu&site=<%= $site %>"><i class="fa fa-globe fa-2x" title="Settings"></i></a></td>
           <td><a href="?action=settingsmenu&site=<%= $site %>"><%= $site %></a></td>
 	  <td><%= $sites->{$site}[1] %></td>
 	  <td><%= $sites->{$site}[2] %></td>
 	  <td><%= $sites->{$site}[3] %></td>
-	  <td><%= $sites->{$site}[4] %></td>
+ 	  <td><a onclick="return confirm('Delete Site <%= $sites->{$site}[0] %> ?')" href="/sites?action=deletesite&site=<%= $sites->{$site}[0] %>"><i class="fa fa-trash fa-2x" title="Delete Site"></i></a></td>
 
  %}
 
