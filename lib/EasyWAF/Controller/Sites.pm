@@ -10,6 +10,8 @@ sub view ($self) {
 
   my %sites;
   my $action=$self->param('action'); 
+  $msg="";
+  $result="";
   $self->stash(username => 'admin',
  	       title => 'Site Managment',
                url => '/sites');
