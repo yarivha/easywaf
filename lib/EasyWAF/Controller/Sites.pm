@@ -8,7 +8,7 @@ my $sites_dir="/etc/nginx/conf.d";
 
 sub view ($self) {
 
-  my %sites;
+  my %sites=get_sites();
   my $action=$self->param('action'); 
   $msg="";
   $result="";
@@ -72,7 +72,16 @@ sub get_sites
 {
 
  my %sites;
- $sites{'test1'}=["sdf","sdfsdfsdf","sfdsdfsdf","sfdsdfsfd"];
+ my $dir;
+ my @files;
+ opendir $dir, $sites_dir;
+  @files = readdir $dir;
+ closedir $dir;
+ foreach (@files) {
+   if(($_ ne ".") && ($_ ne "..")) {
+    $sites{$_}=["$_","sdfsdfsdf","sfdsdfsdf","sfdsdfsfd"];
+   }
+ }
  return (%sites);
 
 }
