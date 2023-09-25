@@ -73,8 +73,8 @@
          </label>
         </div>
        </div>
-       <button type="submit" class="btn btn-default">Submit Button</button>
-       <button type="reset" class="btn btn-default">Reset Button</button>
+       <button type="submit" class="btn btn-default">Save Site</button>
+       <button type="reset" class="btn btn-default">Reset</button>
       </form>
       </div>
     </div>
