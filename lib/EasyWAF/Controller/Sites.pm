@@ -8,7 +8,7 @@ my $sites_dir="/etc/nginx/conf.d";
 
 sub view ($self) {
 
-  my %sites=get_sites();
+  my %sites;
   my $action=$self->param('action'); 
   $msg="";
   $result="";
@@ -34,6 +34,7 @@ sub view ($self) {
   } 
 
 #------------------- Menu --------------
+  %sites=get_sites();
   $self->stash(result => $result,
                msg => $msg,
 	       sites => \%sites);
