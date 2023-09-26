@@ -15,6 +15,7 @@ sub startup ($self) {
 
   # Normal route to controller
   $r->get('/')->to('dashboard#view');
+  $r->get('/login')->to('login#view');
   $r->get('/sites')->to('sites#view');
   $r->get('/certs')->to('certs#view');
 }
