@@ -165,7 +165,7 @@
 
                             <ul class="nav nav-second-level">
                              <li>
-                                     <a href="#" class="active"><i class="fa"></i> add</a>
+                                     <a href="/certs" class="active"><i class="fa fa-certificate"></i> Certificate Manager</a>
                              </li>
                             </ul>
                         </li>

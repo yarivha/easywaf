@@ -90,7 +90,7 @@ sub create_site($self)
  }
  else {
    $result="success";
-   $msg="Site $name Created Succesfully ";
+   $msg="Site $name Created Succesfully $protection1 $protection2 $protection3 $protection4 ";
  }
  return;
 }
