@@ -14,8 +14,8 @@ sub startup ($self) {
   my $r = $self->routes;
 
   # Normal route to controller
-  $r->get('/')->to('dashboard#view');
-  $r->get('/login')->to('login#view');
+  $r->any('/login')->to('login#view');
+  $r->get('/logout')->to('login#logout');
   $r->get('/sites')->to('sites#view');
   $r->get('/certs')->to('certs#view');
 }

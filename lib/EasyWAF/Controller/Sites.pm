@@ -8,38 +8,42 @@ my $sites_dir="/etc/nginx/conf.d";
 
 sub view ($self) {
 
+  if (!($self->session('is_auth'))) {
+        $self->redirect_to('login');
+  }
+  my $username=$self->session('user');
   my %sites;
   my $action=$self->param('action'); 
   $msg="";
   $result="";
-  $self->stash(username => 'admin',
+  $self->stash(username => $username,
  	       title => 'Site Managment',
                url => '/sites');
 
 #----------- Create Site --------------  
-  if ($action eq "createsite") {
-    create_site($self);
-  }
+    if ($action eq "createsite") {
+     create_site($self);
+    } 
 
 #---------- Delete Site ---------------
-  if ($action eq "deletesite") {
-    delete_site($self);
-  }
+    if ($action eq "deletesite") {
+     delete_site($self);
+    }
 
 
 #---------- create site menu -----------
-  if ($action eq "createsitemenu") {
-    $self->render(template => 'easywaf/createsite');	  
-    return;
-  } 
+    if ($action eq "createsitemenu") {
+     $self->render(template => 'easywaf/createsite');	  
+     return;
+    } 
 
 #------------------- Menu --------------
-  %sites=get_sites();
-  $self->stash(result => $result,
+    %sites=get_sites();
+    $self->stash(result => $result,
                msg => $msg,
 	       sites => \%sites);
 
-  $self->render(template => 'easywaf/sites');  
+    $self->render(template => 'easywaf/sites');  
 }
 
 
