@@ -13,17 +13,17 @@
         <form role="form">
          <input type=hidden name="action" value="createcert">
          <div class="form-group">
-          <label>Certifiacte Name</label>
+          <label>Certificate Name</label>
           <input class="form-control" name="name">
           <p class="help-block">The referance name of the certificate.</p>
          </div>
          <div class="form-group">
-          <label>Certificate</label>
-	   <input type="file">
+          <label>Paste below the certificate or certificates taken from the CA</label>
+ 	  <textarea class="form-control" name="cert" rows="10"></textarea>
          </div>
          <div class="form-group">
-          <label>Key</label>
-	  <input type="file">
+          <label>Paste below the Key that was used to create the certificate</label>
+ 	  <textarea class="form-control" name="key" rows="10"></textarea>
          </div>
        <button type="submit" class="btn btn-default">Save Certificate</button>
        <button type="reset" class="btn btn-default">Reset</button>
