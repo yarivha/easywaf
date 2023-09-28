@@ -16,8 +16,14 @@ sub view ($self) {
   $msg="";
   $result="";
   $self->stash(username => $username,
- 	       title => 'Certificate Managment',
+               title => 'Certificate Managment',
                url => '/certs');
+
+#---------- Create Cert Menu ---------  
+  if ($action eq "createcertmenu") {
+	$self->render(template => 'easywaf/createcert');
+        return;
+  }
 
 
 #------------------- Menu --------------
@@ -36,6 +42,7 @@ sub get_certs
  my %certs;
  return (%certs);
 }
+
 
 1;
 
