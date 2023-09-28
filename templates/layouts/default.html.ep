@@ -106,12 +106,12 @@
                             <li class="divider"></li>
 			    <li>
                                     <div>
-                                        <a href="firmware.pl"><i class="fa fa-cloud-download fa-fw"></i>Update</a>
+                                        <a href="firmware.pl"><i class="fa fa-cloud-download fa-fw"></i> Update</a>
                                     </div>
                             </li>
 			    <li>         
                                	    <div>
-                                        <a href="#" onClick="MyWindow=window.open('https://www.easynas.org/wiki/documentation','MyWindow','width=600,height=300'); return false;"><i class="fa fa-question-circle-o fa-fw"></i>Help</a>
+                                        <a href="#" onClick="MyWindow=window.open('https://www.easynas.org/wiki/documentation','MyWindow','width=600,height=300'); return false;"><i class="fa fa-question-circle-o fa-fw"></i> Help</a>
                                     </div>
                             </li>
 			    <li>
