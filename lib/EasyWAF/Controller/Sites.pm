@@ -21,18 +21,18 @@ sub view ($self) {
                url => '/sites');
 
 #----------- Create Site --------------  
-    if ($action eq "createsite") {
+    if (defined $action && $action eq "createsite") {
      create_site($self);
     } 
 
 #---------- Delete Site ---------------
-    if ($action eq "deletesite") {
+    if (defined $action && $action eq "deletesite") {
      delete_site($self);
     }
 
 
 #---------- create site menu -----------
-    if ($action eq "createsitemenu") {
+    if (defined $action && $action eq "createsitemenu") {
      $self->render(template => 'easywaf/createsite');	  
      return;
     } 
