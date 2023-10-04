@@ -31,6 +31,13 @@ sub view ($self) {
    createcert($self);
   }
 
+#---------- Delete Cert ---------  
+  if (defined $action && $action eq "deletecert") {
+   deletecert($self);
+  }
+
+
+
 
 
 #---------- Create Cert Menu ---------  
@@ -85,6 +92,24 @@ sub createcert($self) {
  return; 
 
 }
+
+
+########### deletecert #########
+sub deletecert($self) 
+{
+ my $rc;
+ my $cert = $self->param("cert");
+ unlink($CERT_DIR."/".$cert.".cert");
+ unlink($CERT_DIR."/".$cert.".key");
+ $result="success";
+ $msg="Certificate $cert Deleted Succesfully ";
+ return;
+}
+
+
+
+
+
 
 ######### get_certs ##########
 
