@@ -1,6 +1,6 @@
 # EasyWAF
 
-EasyWAF is a web application firewall intded to protect web sites from mallitios attacks.
+EasyWAF is a web application firewall intded to protect web sites from malicious attacks.
 It's based on NGINX + Modsecurity 
 
 Requirments:
