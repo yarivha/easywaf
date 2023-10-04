@@ -120,7 +120,6 @@ sub delete_site($self)
 ########## get_sites ##########
 sub get_sites
 {
-
  my %sites;
  my $dir;
  my $file;

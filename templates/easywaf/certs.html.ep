@@ -23,10 +23,10 @@
       <thead>
         <tr>
          <th></th>
-         <th>Site</th>
-	 <th>Certificate</th>
-	 <th>Policy</th>
-	 <th>Protection</th>
+         <th>Cert</th>
+	 <th>Common Name</th>
+	 <th>Start Date</th>
+	 <th>Expire Date</th>
 	 <th>Actions</th>
         </tr>
       </thead>
@@ -34,9 +34,10 @@
 % foreach my $cert (keys (%$certs)) {
         <tr>
           <td><i class="fa fa-globe fa-2x" title="Settings"></i></td>
+	  <td><%= $certs->{$cert}[0] %></td>
 	  <td><%= $certs->{$cert}[1] %></td>
 	  <td><%= $certs->{$cert}[2] %></td>
-	  <td><%= $certs->{$cert}[3] %></td>
+          <td><%= $certs->{$cert}[3] %></td>
  	  <td><a onclick="return confirm('Delete Certificate <%= $certs->{$cert}[0] %> ?')" href="/certs?action=deletecert&cert=<%= $certs->{$cert}[0] %>"><i class="fa fa-trash fa-2x" title="Delete Site"></i></a></td>
 
  %}

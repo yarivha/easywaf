@@ -20,8 +20,6 @@ sub view ($self) {
   $self->stash(username => $username,
                title => 'Certificate Managment',
                url => '/certs');
-  use File::Basename 'basename';
-  use File::Path 'mkpath';
 
   # Create directory if not exists
   unless (-d $CERT_DIR) {
@@ -29,14 +27,14 @@ sub view ($self) {
   }
 
 #---------- Create Cert ---------  
-  if ($action eq "createcert") {
+  if (defined $action && $action eq "createcert") {
    createcert($self);
   }
 
 
 
 #---------- Create Cert Menu ---------  
-  if ($action eq "createcertmenu") {
+  if (defined $action && $action eq "createcertmenu") {
 	$self->render(template => 'easywaf/createcert');
         return;
   }
@@ -49,14 +47,6 @@ sub view ($self) {
 	       certs => \%certs);
 
   $self->render(template => 'easywaf/certs');  
-}
-
-
-########## get_certs ##########
-sub get_certs
-{
- my %certs;
- return (%certs);
 }
 
 ######### createcert #########
@@ -95,6 +85,43 @@ sub createcert($self) {
  return; 
 
 }
+
+######### get_certs ##########
+
+sub get_certs
+{
+
+ my %certs;
+ my $dir;
+ my @files;
+ my $name;
+ my $subject;
+ my $url;
+ my $startdate;
+ my $enddate;
+ opendir $dir, $CERT_DIR;
+ @files = readdir $dir;
+ closedir $dir;
+ foreach (@files) {
+   if ($_ =~ ".cert") {
+    ($name,undef)=split(/\./, $_);
+    $subject=`/usr/bin/sudo /usr/bin/openssl x509 -noout -subject -in $CERT_DIR/$name.cert`;
+    $startdate=`/usr/bin/sudo /usr/bin/openssl x509 -noout -startdate -in $CERT_DIR/$name.cert`;
+    $enddate=`/usr/bin/sudo /usr/bin/openssl x509 -noout -enddate -in $CERT_DIR/$name.cert`;
+    (undef,undef,undef,$url)=split(", ",$subject); 
+    $url=substr($url,5);
+    $startdate=substr($startdate, 10); 
+    $enddate=substr($enddate,9);
+    $certs{$name}=[$name,$url,$startdate,$enddate];
+   }
+  $name="";
+  $url="";
+  $startdate="";
+  $enddate="";
+ }
+ return (%certs);
+}
+
 
 
 1;
