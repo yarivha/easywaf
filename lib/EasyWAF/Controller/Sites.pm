@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 my $msg;
 my $result;
-my $sites_dir="/etc/nginx/conf.d";
+my $SITE_DIR="/etc/nginx/conf.d";
 
 sub view ($self) {
 
@@ -61,7 +61,7 @@ sub create_site($self)
  my $protection3 = $self->param("protection3");
  my $protection4 = $self->param("protection4");
 
- my $file=$sites_dir."/".$name.".conf";
+ my $file=$SITE_DIR."/".$name.".conf";
  my $log="/var/log/nginx/".$name.".log";
  print $protection1;
  `/bin/echo "#### $name ####" | /usr/bin/sudo /usr/bin/tee -a $file`;
@@ -90,7 +90,7 @@ sub create_site($self)
  if ($rc) {
    $result="failed";
    $msg="Site $name Failed to Create";
-   unlink($sites_dir."/".$name.".conf");
+   unlink($SITE_DIR."/".$name.".conf");
  }
  else {
    $result="success";
@@ -104,7 +104,7 @@ sub delete_site($self)
 {
  my $rc;
  my $site = $self->param("site");
- unlink($sites_dir."/".$site);
+ unlink($SITE_DIR."/".$site);
  $rc = system("/usr/bin/sudo /usr/bin/systemctl restart nginx > /dev/null");
  if ($rc) {
    $result="failed";
@@ -130,13 +130,13 @@ sub get_sites
  my $server;
  my $port;
  my $url;
- opendir $dir, $sites_dir;
+ opendir $dir, $SITE_DIR;
  @files = readdir $dir;
  closedir $dir;
  foreach (@files) {
   if(($_ ne ".") && ($_ ne "..")) {
     $name=$_;
-    open $file, $sites_dir."/".$_;
+    open $file, $SITE_DIR."/".$_;
     while ($line = <$file>) {
      if ($line =~ /server_name/i) {
 	(undef,$server)=split(" ",$line);
