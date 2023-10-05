@@ -7,6 +7,7 @@ use File::Path 'mkpath';
 my $msg;
 my $result;
 my $POLICY_DIR="/etc/nginx/modsec";
+my $RULES_DIR="/usr/share/owasp-modsecurity-crs/rules";
 my %policy;
 
 sub view ($self) {
@@ -40,6 +41,22 @@ sub view ($self) {
 
 #---------- Create Policy Menu ---------  
   if (defined $action && $action eq "createpolicymenu") {
+	my %rules;  
+	my $dir;
+ 	my @files;
+ 	my $name;
+ 	opendir $dir, $RULES_DIR;
+ 	@files = readdir $dir;
+ 	closedir $dir;
+ 	foreach (@files) {
+   	  if ($_ =~ ".conf") {
+    	    ($name,undef)=split(/\./, $_);
+            $rules{$name}=[$name];
+   	  }
+  	  $name="";
+ 	}
+
+	$self->stash(rules => \%rules);  
 	$self->render(template => 'easywaf/createpolicy');
         return;
   }

@@ -19,6 +19,7 @@ sub startup ($self) {
   $r->get('/logout')->to('login#logout');
   $r->get('/sites')->to('sites#view');
   $r->get('/certs')->to('certs#view');
+  $r->get('/policy')->to('policy#view');
 }
 
 1;

@@ -1,0 +1,39 @@
+% layout 'default';
+
+
+<div class="row">
+ <div class="col-lg-10">
+  <div class="panel panel-default">
+   <div class="panel-heading">
+    <label>Create new Policy</label>
+   </div>
+   <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <form role="form">
+         <input type=hidden name="action" value="createcert">
+         <div class="form-group">
+          <label>Policy Name</label>
+          <input class="form-control" name="name">
+          <p class="help-block">The referance name of the policy.</p>
+         </div>
+         <div class="form-group">
+          <label>Select the active protection for this policy.</label>
+	  <br>
+% foreach my $rule (keys (%$rules)) {
+          <label class="checkbox-inline">
+           <input type="checkbox"><%= $rules->{$rule}[0] %>
+          </label>
+%}
+
+         </div>
+       <button type="submit" class="btn btn-default">Save Policy</button>
+       <button type="reset" class="btn btn-default">Reset</button>
+      </form>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
