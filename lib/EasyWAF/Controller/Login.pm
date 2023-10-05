@@ -14,12 +14,12 @@ sub view ($self) {
     }
 
 #-------- Login ---------
-    if ($action eq "login") {
+    if (defined $action && $action eq "login") {
 	login($self);
     }
 
 #-------- Logout --------     
-    if ($action eq "logout") {
+    if (defined $action && $action eq "logout") {
 	logout($self);
     }
 
