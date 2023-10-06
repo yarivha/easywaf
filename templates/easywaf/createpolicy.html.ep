@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-lg-6">
         <form role="form">
-         <input type=hidden name="action" value="createcert">
+         <input type=hidden name="action" value="createpolicy">
          <div class="form-group">
           <label>Policy Name</label>
           <input class="form-control" name="name">
@@ -22,7 +22,7 @@
 	  <br>
 % foreach my $rule (keys (%$rules)) {
           <label class="checkbox-inline">
-           <input type="checkbox"><%= $rules->{$rule}[0] %>
+           <input type="checkbox" name="rules"><%= $rules->{$rule}[0] %>
           </label>
 %}
 

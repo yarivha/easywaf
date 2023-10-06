@@ -49,8 +49,8 @@ sub view ($self) {
  	@files = readdir $dir;
  	closedir $dir;
  	foreach (@files) {
-   	  if ($_ =~ ".conf") {
-    	    ($name,undef)=split(/\./, $_);
+   	  if ($_ =~ /\.conf/) {
+    	    ($name,undef)=split(/\.conf/, $_);
             $rules{$name}=[$name];
    	  }
   	  $name="";
@@ -73,6 +73,19 @@ sub view ($self) {
 
 ######### createpolicy #########
 sub createpolicy($self) {
+ my $name=$self->param("name");
+ my $ruleengine=$self->param("roleengine");
+ my @rules=$self->param("rules");
+ my $rule; 
+ my $file="$POLICY_DIR/$name.conf";
+
+ `echo "#--------------- $name ---------------" | /usr/bin/sudo /usr/bin/tee $file`;
+ `echo "SecRuleEngine $ruleengine" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ foreach $rule (@rules) {
+   `echo "include $RULES_DIR/$rule.conf" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }
+ $result="success";
+ $msg="Policy $name Created Succesfully ";  	 
  return; 
 }
 
