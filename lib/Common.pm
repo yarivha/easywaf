@@ -27,7 +27,7 @@ use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw();
 our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR   
-		     get_certs);
+		     get_certs get_policy get_sites);
 
 
 ############# Declarations #####################
@@ -77,4 +77,67 @@ sub get_certs
  }
  return (%certs);
 }
+
+
+
+######### get_policy ##########
+
+sub get_policy
+{
+
+ my %policy;
+ my $dir;
+ my @files;
+ my $name;
+ opendir $dir, $POLICY_DIR;
+ @files = readdir $dir;
+ closedir $dir;
+ foreach (@files) {
+   if ($_ =~ ".conf") {
+    ($name,undef)=split(/\./, $_);
+    $policy{$name}=[$name];
+   }
+  $name="";
+ }
+ return (%policy);
+}
+
+########## get_sites ##########
+sub get_sites
+{
+ my %sites;
+ my $dir;
+ my $file;
+ my $line;
+ my @files;
+ my @conf;
+ my $name;
+ my $server;
+ my $port;
+ my $url;
+ opendir $dir, $SITE_DIR;
+ @files = readdir $dir;
+ closedir $dir;
+ foreach (@files) {
+  if(($_ ne ".") && ($_ ne "..")) {
+    $name=$_;
+    open $file, $SITE_DIR."/".$_;
+    while ($line = <$file>) {
+     if ($line =~ /server_name/i) {
+        (undef,$server)=split(" ",$line);
+        chop($server);
+     }
+     if ($line =~ /proxy_pass/i) {
+        (undef,$url)=split(" ",$line);
+        chop($url);
+     }
+    }
+    close $file;
+    $sites{$_}=[$_,$server,$url,"sfdsdfsdf"];
+  }
+  $name="";
+ }
+ return (%sites);
+}
+
 

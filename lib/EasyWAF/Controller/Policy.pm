@@ -100,34 +100,6 @@ sub deletepolicy($self)
 }
 
 
-
-
-
-
-######### get_policy ##########
-
-sub get_policy
-{
-
- my %policy;
- my $dir;
- my @files;
- my $name;
- opendir $dir, $POLICY_DIR;
- @files = readdir $dir;
- closedir $dir;
- foreach (@files) {
-   if ($_ =~ ".conf") {
-    ($name,undef)=split(/\./, $_);
-    $policy{$name}=[$name];
-   }
-  $name="";
- }
- return (%policy);
-}
-
-
-
 1;
 
 
