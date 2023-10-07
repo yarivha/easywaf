@@ -17,6 +17,19 @@
           <input class="form-control" name="name">
           <p class="help-block">The referance name of the policy.</p>
          </div>
+	 <div class="form-group">
+           <label>ModSecurity Mode</label>
+	   <BR>
+           <label class="radio-inline">
+            <input type="radio" name="roleengine" id="optionsRadiosInline1" value="DetectionOnly" checked>DetectionOnly
+           </label>
+           <label class="radio-inline">
+            <input type="radio" name="roleengine" id="optionsRadiosInline2" value="ON">ON
+           </label>
+           <label class="radio-inline">
+            <input type="radio" name="roleengine" id="optionsRadiosInline3" value="OFF">OFF
+           </label>
+         </div>
          <div class="form-group">
           <label>Select the active protection for this policy.</label>
 	  <br>
