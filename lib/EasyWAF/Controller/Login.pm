@@ -8,11 +8,13 @@ my $result;
 
 sub view ($self) {
    
-    my $action = $self->param('action');
-    
     if ($self->session('is_auth')) {
         $self->redirect_to('/');
     }
+
+    my $action = $self->param('action');
+    $msg="";
+    $result="";
 
 #-------- Login ---------
     if (defined $action && $action eq "login") {
