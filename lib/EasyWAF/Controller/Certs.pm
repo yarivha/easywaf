@@ -1,12 +1,13 @@
 package EasyWAF::Controller::Certs;
-use lib '.';
+use lib '/apps/easy_waf/lib';
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use File::Basename 'basename';
 use File::Path 'mkpath';
+use lib '/apps/easy_waf/lib';
+use Common;
 
 my $msg;
 my $result;
-my $CERT_DIR="/etc/nginx/certs";
 my %certs;
 
 sub view ($self) {

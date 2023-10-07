@@ -1,5 +1,7 @@
 package EasyWAF;
+use lib '.';
 use Mojo::Base 'Mojolicious', -signatures;
+use Common;
 
 # This method will run once at server start
 sub startup ($self) {

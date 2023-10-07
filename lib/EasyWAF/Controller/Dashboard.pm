@@ -1,6 +1,7 @@
 package EasyWAF::Controller::Dashboard;
-use lib '.';
+use lib '/apps/easy_waf/lib';
 use Mojo::Base 'Mojolicious::Controller', -signatures;
+use Common;
 
 sub view ($self) {
   if (!($self->session('is_auth'))) {

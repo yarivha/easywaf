@@ -1,7 +1,8 @@
 package EasyWAF::Controller::Login;
-use lib '.';
+use lib '/apps/easy_waf/lib';
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use Digest::SHA qw/sha512_base64/;
+use Common;
 
 my $msg;
 my $result;

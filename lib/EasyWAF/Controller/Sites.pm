@@ -1,10 +1,10 @@
 package EasyWAF::Controller::Sites;
-use lib '.';
+use lib '/apps/easy_waf/lib';
 use Mojo::Base 'Mojolicious::Controller', -signatures;
+use Common;
 
 my $msg;
 my $result;
-my $SITE_DIR="/etc/nginx/conf.d";
 
 sub view ($self) {
 

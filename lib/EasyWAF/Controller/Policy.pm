@@ -1,13 +1,12 @@
 package EasyWAF::Controller::Policy;
-use lib '.';
+use lib '/apps/easy_waf/lib';
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use File::Basename 'basename';
 use File::Path 'mkpath';
+use Common;
 
 my $msg;
 my $result;
-my $POLICY_DIR="/etc/nginx/modsec";
-my $RULES_DIR="/usr/share/owasp-modsecurity-crs/rules";
 my %policy;
 
 sub view ($self) {
