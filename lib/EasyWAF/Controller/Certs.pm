@@ -107,49 +107,6 @@ sub deletecert($self)
  return;
 }
 
-
-
-
-
-
-######### get_certs ##########
-
-sub get_certs
-{
-
- my %certs;
- my $dir;
- my @files;
- my $name;
- my $subject;
- my $url;
- my $startdate;
- my $enddate;
- opendir $dir, $CERT_DIR;
- @files = readdir $dir;
- closedir $dir;
- foreach (@files) {
-   if ($_ =~ ".cert") {
-    ($name,undef)=split(/\./, $_);
-    $subject=`/usr/bin/sudo /usr/bin/openssl x509 -noout -subject -in $CERT_DIR/$name.cert`;
-    $startdate=`/usr/bin/sudo /usr/bin/openssl x509 -noout -startdate -in $CERT_DIR/$name.cert`;
-    $enddate=`/usr/bin/sudo /usr/bin/openssl x509 -noout -enddate -in $CERT_DIR/$name.cert`;
-    (undef,undef,undef,$url)=split(", ",$subject); 
-    $url=substr($url,5);
-    $startdate=substr($startdate, 10); 
-    $enddate=substr($enddate,9);
-    $certs{$name}=[$name,$url,$startdate,$enddate];
-   }
-  $name="";
-  $url="";
-  $startdate="";
-  $enddate="";
- }
- return (%certs);
-}
-
-
-
 1;
 
 
