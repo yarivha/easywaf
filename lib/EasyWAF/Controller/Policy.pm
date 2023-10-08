@@ -80,6 +80,8 @@ sub createpolicy($self) {
 
  `echo "#--------------- $name ---------------" | /usr/bin/sudo /usr/bin/tee $file`;
  `echo "SecRuleEngine $ruleengine" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `echo "SecRequestBodyAccess On" | /usr/bin/sudo /usr/bin/tee -a $file`;
+
  foreach $rule (@rules) {
    `echo "include $RULES_DIR/$rule.conf" | /usr/bin/sudo /usr/bin/tee -a $file`;
  }

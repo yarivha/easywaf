@@ -8,10 +8,16 @@ sub view ($self) {
         $self->redirect_to('login');
   }
   my $username=$self->session('user');
+  my %certs=get_certs();
+  my %policy=get_policy();
+  my %sites=get_sites();
   $self->render(template => 'easywaf/dashboard',
 	        username => $username,
   		title => 'DashBoard',
-		url => '/');
+		url => '/',
+		sites_number => scalar(keys %sites),
+		policy_number => scalar(keys %policy),
+		certs_number => scalar(keys %certs));
 
 }
 
