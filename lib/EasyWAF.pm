@@ -22,6 +22,7 @@ sub startup ($self) {
   $r->get('/sites')->to('sites#view');
   $r->get('/certs')->to('certs#view');
   $r->get('/policy')->to('policy#view');
+  $r->get('/firmware')->to('firmware#view');
 }
 
 1;

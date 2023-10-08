@@ -106,7 +106,7 @@
                             <li class="divider"></li>
 			    <li>
                                     <div>
-                                        <a href="firmware.pl"><i class="fa fa-cloud-download fa-fw"></i> Update</a>
+                                        <a href="/firmware"><i class="fa fa-cloud-download fa-fw"></i> Update</a>
                                     </div>
                             </li>
 			    <li>         
