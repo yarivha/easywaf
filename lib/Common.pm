@@ -119,8 +119,8 @@ sub get_sites
  @files = readdir $dir;
  closedir $dir;
  foreach (@files) {
-  if(($_ ne ".") && ($_ ne "..")) {
-    $name=$_;
+  if($_ =~ ".conf") {
+    ($name,undef)=split(".conf",$_);
     open $file, $SITE_DIR."/".$_;
     while ($line = <$file>) {
      if ($line =~ /server_name/i) {
@@ -133,7 +133,7 @@ sub get_sites
      }
     }
     close $file;
-    $sites{$_}=[$_,$server,$url,"sfdsdfsdf"];
+    $sites{$name}=[$name,$server,$url,"sfdsdfsdf"];
   }
   $name="";
  }
