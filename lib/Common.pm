@@ -26,7 +26,7 @@ use warnings;
 use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw();
-our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR   
+our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR $LOG_DIR   
 		     get_certs get_policy get_sites);
 
 
@@ -38,7 +38,7 @@ our $SITE_DIR="/etc/nginx/conf.d";
 our $CERT_DIR="/etc/nginx/certs";
 our $POLICY_DIR="/etc/nginx/modsec";
 our $RULES_DIR="/usr/share/owasp-modsecurity-crs/rules";
-
+our $LOG_DIR="/var/log/nginx";
 
 ################# Common Subs ##################
 

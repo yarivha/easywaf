@@ -64,7 +64,7 @@ sub create_site($self)
  my $protection4 = $self->param("protection4");
 
  my $file=$SITE_DIR."/".$name.".conf";
- my $log="/var/log/nginx/".$name.".log";
+ my $log=$LOG_DIR.$name.".log";
  
  if (-e $file) {
   $result="failed";
@@ -112,7 +112,8 @@ sub delete_site($self)
 {
  my $rc;
  my $site = $self->param("site");
- unlink($SITE_DIR."/".$site);
+ unlink($SITE_DIR."/".$site.".conf");
+ unlink($LOG_DIR.$site.".log");
  $rc = system("/usr/bin/sudo /usr/bin/systemctl restart nginx > /dev/null");
  if ($rc) {
    $result="failed";
