@@ -65,7 +65,14 @@ sub create_site($self)
 
  my $file=$SITE_DIR."/".$name.".conf";
  my $log="/var/log/nginx/".$name.".log";
- print $protection1;
+
+ if (-e $file) {
+  $result="failed";
+  $msg="Site name already exist";	 
+  return;
+ }
+
+
  `/bin/echo "#### $name ####" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "server {" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   listen $port;" | /usr/bin/sudo /usr/bin/tee -a $file`;
