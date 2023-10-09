@@ -36,22 +36,22 @@
          <label>Basic Protection</label>
          <div class="checkbox">
           <label>
-           <input type="checkbox" name="protection1" value="">Enable Strict Transport Security
+           <input type="checkbox" name="protection1" value="protection1">Enable Strict Transport Security
           </label>
          </div>
          <div class="checkbox">
           <label>
-           <input type="checkbox" name="protection2" value="">Prevent the use of a page in a frame
+           <input type="checkbox" name="protection2" value="protection2">Prevent the use of a page in a frame
           </label>
          </div>
          <div class="checkbox">
           <label>
-           <input type="checkbox" name="protection3" value="">Ensure that the browser always uses the correct MIME type
+           <input type="checkbox" name="protection3" value="protection3">Ensure that the browser always uses the correct MIME type
           </label>
          </div>
          <div class="checkbox">
           <label>
-           <input type="checkbox" name="protection4" value="">XSS Protection
+           <input type="checkbox" name="protection4" value="protection4">XSS Protection
           </label>
          </div>
         </div>
