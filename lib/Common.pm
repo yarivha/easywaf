@@ -153,8 +153,8 @@ sub get_rules {
  @files = readdir $dir;
  closedir $dir;
  foreach (@files) {
-   if ($_ =~ /\.conf/) {
-    ($name,undef)=split(/\.conf/, $_);
+   if (($_ =~ /\.conf/) and ($_ ne "REQUEST-901-INITIALIZATION.conf") and ($_ ne "RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf"))  {
+     $name=substr $_,0,-5;
      $rules{$name}=[$name];
    }
   $name="";
