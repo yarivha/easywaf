@@ -175,7 +175,7 @@
 
                             <ul class="nav nav-second-level">
                              <li>
-                                     <a href="/policy" class="active"><i class="fa"></i> Policy Manager</a>
+                                     <a href="/policy" class="active"><i class="fa fa-shield fa-fw"></i> Policy Manager</a>
                              </li>
                              <li>
                                      <a href="#" class="active"><i class="fa"></i> Black/White List</a>

@@ -85,7 +85,7 @@ sub get_certs
 sub get_policy
 {
 
- my %policy;
+my %policy;
  my $dir;
  my @files;
  my $name;
@@ -101,6 +101,7 @@ sub get_policy
  }
  return (%policy);
 }
+
 
 ########## get_sites ##########
 sub get_sites
