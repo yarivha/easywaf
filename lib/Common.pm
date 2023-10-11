@@ -27,7 +27,7 @@ use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw();
 our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR $LOG_DIR   
-		     get_certs get_policy get_sites);
+		     get_certs get_policy get_sites get_rules);
 
 
 ############# Declarations #####################
@@ -141,4 +141,27 @@ sub get_sites
  return (%sites);
 }
 
+
+######## get_rules #########
+sub get_rules {
+
+ my %rules;
+ my $dir;
+ my @files;
+ my $name;
+ opendir $dir, $RULES_DIR;
+ @files = readdir $dir;
+ closedir $dir;
+ foreach (@files) {
+   if ($_ =~ /\.conf/) {
+    ($name,undef)=split(/\.conf/, $_);
+     $rules{$name}=[$name];
+   }
+  $name="";
+ }
+ return %rules;
+}
+
+
+1;
 

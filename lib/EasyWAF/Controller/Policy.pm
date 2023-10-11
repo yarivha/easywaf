@@ -40,21 +40,7 @@ sub view ($self) {
 
 #---------- Create Policy Menu ---------  
   if (defined $action && $action eq "createpolicymenu") {
-	my %rules;  
-	my $dir;
- 	my @files;
- 	my $name;
- 	opendir $dir, $RULES_DIR;
- 	@files = readdir $dir;
- 	closedir $dir;
- 	foreach (@files) {
-   	  if ($_ =~ /\.conf/) {
-    	    ($name,undef)=split(/\.conf/, $_);
-            $rules{$name}=[$name];
-   	  }
-  	  $name="";
- 	}
-
+	my %rules=get_rules();  
 	$self->stash(rules => \%rules);  
 	$self->render(template => 'easywaf/createpolicy');
         return;
