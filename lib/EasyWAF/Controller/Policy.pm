@@ -58,9 +58,9 @@ sub view ($self) {
 
 ######### createpolicy #########
 sub createpolicy($self) {
+ my %rules=get_rules();
  my $name=$self->param("name");
  my $ruleengine=$self->param("roleengine");
- my @rules=$self->param("rules");
  my $rule; 
  my $file="$POLICY_DIR/$name.conf";
 
@@ -68,8 +68,10 @@ sub createpolicy($self) {
  `echo "SecRuleEngine $ruleengine" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `echo "SecRequestBodyAccess On" | /usr/bin/sudo /usr/bin/tee -a $file`;
 
- foreach $rule (@rules) {
+ foreach $rule (keys %rules) {
+   if (defined $self->param($rule)) {
    `echo "include $RULES_DIR/$rule.conf" | /usr/bin/sudo /usr/bin/tee -a $file`;
+   }
  }
  $result="success";
  $msg="Policy $name Created Succesfully ";  	 

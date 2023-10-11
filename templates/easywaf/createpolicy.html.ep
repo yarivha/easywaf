@@ -35,7 +35,7 @@
 	  <br>
 % foreach my $rule (keys (%$rules)) {
           <label class="checkbox-inline">
-           <input type="checkbox" name="rules value="<%= $rule %>"><%= $rules->{$rule}[0] %>
+           <input type="checkbox" name="<%= $rule %>"><%= $rules->{$rule}[0] %>
           </label>
 %}
 
