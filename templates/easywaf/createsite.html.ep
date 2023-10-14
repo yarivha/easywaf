@@ -57,7 +57,7 @@
         </div>
         <div class="form-group">
          <label>Security Policy</label>
-         <select class="form-control">
+         <select class="form-control" name="policy">
           <option>None</option>
 % foreach my $policy (keys (%$policies)) {
           <option><%= $policy %></option>

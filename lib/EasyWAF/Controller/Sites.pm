@@ -62,6 +62,7 @@ sub create_site($self)
  my $protection2 = $self->param("protection2");
  my $protection3 = $self->param("protection3");
  my $protection4 = $self->param("protection4");
+ my $policy = $self->param("policy");
 
  my $file=$SITE_DIR."/".$name.".conf";
  my $log=$LOG_DIR."/".$name.".log";
@@ -77,6 +78,12 @@ sub create_site($self)
  `/bin/echo "   listen $port;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   server_name $server;" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `/bin/echo "   access_log $log;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+
+ if ($policy ne "None") {
+ `/bin/echo "   modsecurity on;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `/bin/echo "   modsecurity_rules_file $POLICY_DIR/$policy.conf;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }
+
  if ($protection1) {
   `/bin/echo '   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;' | /usr/bin/sudo /usr/bin/tee -a $file`;
  }

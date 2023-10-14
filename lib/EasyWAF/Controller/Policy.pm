@@ -61,12 +61,25 @@ sub createpolicy($self) {
  my %rules=get_rules();
  my $name=$self->param("name");
  my $ruleengine=$self->param("roleengine");
+ my $enable_xml=1;
+ my $enable_json=1;
  my $rule; 
  my $file="$POLICY_DIR/$name.conf";
 
  `echo "#--------------- $name ---------------" | /usr/bin/sudo /usr/bin/tee $file`;
  `echo "SecRuleEngine $ruleengine" | /usr/bin/sudo /usr/bin/tee -a $file`;
  `echo "SecRequestBodyAccess On" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ if ($enable_xml) {
+ `echo 'SecRule REQUEST_HEADERS:Content-Type "^(?:application(?:/soap\+|/)|text/)xml" "id:'200000',phase:1,t:none,t:lowercase,pass,noog,ctl:requestBodyProcessor=XML"'  | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }  
+ if ($enable_json) {
+  `echo 'SecRule REQUEST_HEADERS:Content-Type "^application/json" "id:'200001',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=JSON"' | /usr/bin/sudo /usr/bin/tee -a $file`;
+ }
+ `echo 'SecRequestBodyLimit 13107200' | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `echo 'SecRequestBodyNoFilesLimit 131072' | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `echo 'SecRequestBodyLimitAction Reject' | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `echo 'SecRequestBodyJsonDepthLimit 512' | /usr/bin/sudo /usr/bin/tee -a $file`;
+ `echo 'SecArgumentsLimit 1000' | /usr/bin/sudo /usr/bin/tee -a $file`;
 
  foreach $rule (keys %rules) {
    if (defined $self->param($rule)) {
