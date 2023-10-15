@@ -163,5 +163,11 @@ sub get_rules {
 }
 
 
+sub waf_stat {
+ `echo "run" | tee -a /tmp/stat.txt`;
+ return;
+}
+
+
 1;
 
