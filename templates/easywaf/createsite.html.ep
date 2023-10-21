@@ -12,6 +12,7 @@
       <div class="col-lg-6">
         <form role="form">
          <input type=hidden name="action" value="savesite">
+	 <input type=hidden name="update" value="false">
          <div class="form-group">
           <label>Site Name</label>
           <input class="form-control" name="name">

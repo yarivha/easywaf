@@ -61,6 +61,7 @@ sub save_site($self)
 {
  
  my $rc;
+ my $update = $self->param("update");
  my $name = $self->param("name");
  my $server = $self->param("server");
  my $target = $self->param("target");
@@ -74,7 +75,7 @@ sub save_site($self)
  my $file=$SITE_DIR."/".$name.".conf";
  my $log=$LOG_DIR."/".$name.".log";
  
- if (-e $file) {
+ if ((-e $file) && ($update eq "false")) {
   $result="failed";
   $msg="Site name already exist";	 
   return;
