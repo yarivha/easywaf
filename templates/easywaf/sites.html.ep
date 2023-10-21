@@ -24,8 +24,8 @@
         <tr>
          <th></th>
          <th>Site</th>
-	 <th>Certificate</th>
-	 <th>Policy</th>
+	 <th>Server</th>
+	 <th>Target</th>
 	 <th>Protection</th>
 	 <th>Actions</th>
         </tr>

@@ -118,12 +118,14 @@ sub get_sites
  my $server;
  my $port;
  my $url;
+ my $policy;
  opendir $dir, $SITE_DIR;
  @files = readdir $dir;
  closedir $dir;
  foreach (@files) {
   if($_ =~ ".conf") {
     ($name,undef)=split(".conf",$_);
+    $policy="Off";
     open $file, $SITE_DIR."/".$_;
     while ($line = <$file>) {
      if ($line =~ /server_name/i) {
@@ -134,9 +136,12 @@ sub get_sites
         (undef,$url)=split(" ",$line);
         chop($url);
      }
+     if ($line =~ /modsecurity on/i) {
+	$policy="On";
+     }
     }
     close $file;
-    $sites{$name}=[$name,$server,$url,"sfdsdfsdf"];
+    $sites{$name}=[$name,$server,$url,$policy];
   }
   $name="";
  }
