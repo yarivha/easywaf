@@ -21,8 +21,8 @@ sub view ($self) {
                url => '/sites');
 
 #----------- Create Site --------------  
-    if (defined $action && $action eq "createsite") {
-     create_site($self);
+    if (defined $action && $action eq "savesite") {
+     save_site($self);
     } 
 
 #---------- Delete Site ---------------
@@ -56,8 +56,8 @@ sub view ($self) {
 }
 
 
-######## create_site #########
-sub create_site($self)
+######## save_site #########
+sub save_site($self)
 {
  
  my $rc;
