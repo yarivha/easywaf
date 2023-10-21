@@ -11,6 +11,7 @@ sub view ($self) {
   my %certs=get_certs();
   my %policy=get_policy();
   my %sites=get_sites();
+  #  waf_stat;
   $self->render(template => 'easywaf/dashboard',
 	        username => $username,
   		title => 'DashBoard',

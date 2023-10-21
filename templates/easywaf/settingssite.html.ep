@@ -1,0 +1,85 @@
+% layout 'default';
+
+
+<div class="row">
+ <div class="col-lg-10">
+  <div class="panel panel-default">
+   <div class="panel-heading">
+    <label><%= $site %></label>
+   </div>
+   <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <form role="form">
+         <input type=hidden name="action" value="savesite">
+         <div class="form-group">
+          <label>Site Name</label>
+          <p class="form-control-static"><%= $site %></p>
+         </div>
+         <div class="form-group">
+          <label>Server URL</label>
+          <input class="form-control" name="server" value=<%= $server %>>
+          <p class="help-block">WAF protected URL.</p>
+         </div>
+         <div class="form-group">
+          <label>Target URL</label>
+          <input class="form-control" name="target" value=<%= $target %>>
+          <p class="help-block">The original un-protected URL of the site (e.g. https://www.google.com) </p>
+         </div>
+         <div class="form-group">
+          <label>Target Port</label>
+          <input class="form-control" name="port" value=<%= $port %>>
+          <p class="help-block">Listening port on the WAF.</p>
+        </div>
+        <div class="form-group">
+         <label>Basic Protection</label>
+         <div class="checkbox">
+          <label>
+           <input type="checkbox" name="protection1" value="protection1" <%= $protection1 %>>Enable Strict Transport Security
+          </label>
+         </div>
+         <div class="checkbox">
+          <label>
+           <input type="checkbox" name="protection2" value="protection2" <%= $protection2 %>>Prevent the use of a page in a frame
+          </label>
+         </div>
+         <div class="checkbox">
+          <label>
+           <input type="checkbox" name="protection3" value="protection3" <%= $protection3 %>>Ensure that the browser always uses the correct MIME type
+          </label>
+         </div>
+         <div class="checkbox">
+          <label>
+           <input type="checkbox" name="protection4" value="protection4" <%= $protection1 %>> XSS Protection
+          </label>
+         </div>
+        </div>
+        <div class="form-group">
+         <label>Security Policy</label>
+         <select class="form-control" name="policy">
+          <option>None</option>
+% foreach my $policy (keys (%$policies)) {
+          <option><%= $policy %></option>
+%}
+         </select>
+        </div>
+        <div class="form-group">
+         <label>SSL Termination</label>
+          <div class="checkbox">
+         <label>
+          <input type="checkbox" value="">Enable SSL Termination
+         </label>
+        </div>
+       </div>
+       <button type="submit" class="btn btn-default">Save Site</button>
+       <button type="reset" class="btn btn-default">Reset</button>
+      </form>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+

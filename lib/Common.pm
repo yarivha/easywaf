@@ -27,7 +27,7 @@ use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw();
 our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR $LOG_DIR   
-		     get_certs get_policy get_sites get_rules);
+		     get_certs get_policy get_sites get_rules waf_stat );
 
 
 ############# Declarations #####################
@@ -39,6 +39,8 @@ our $CERT_DIR="/etc/nginx/certs";
 our $POLICY_DIR="/etc/nginx/modsec";
 our $RULES_DIR="/usr/share/owasp-modsecurity-crs/rules";
 our $LOG_DIR="/var/log/nginx";
+our $MODSEC_LOG="/var/log/modsec_audit.log";
+our $EVENTS_FILE="/apps/easy_waf/public/js/events.js";
 
 ################# Common Subs ##################
 
@@ -162,9 +164,76 @@ sub get_rules {
  return %rules;
 }
 
-
+######### waf_stat ##########
 sub waf_stat {
- `echo "run" | tee -a /tmp/stat.txt`;
+
+ my %time_stat;
+ my %attacks_stat;
+ my %ip_stat;
+
+ $attacks_stat{'Attack1'}=3;
+ $attacks_stat{'Attack2'}=5;
+ $ip_stat{'IP1'}=8;
+ $time_stat{'00:00'}=10;
+ $time_stat{'02:00'}=5;
+ $time_stat{'04:00'}=1;
+ $time_stat{'06:00'}=2;
+ $time_stat{'08:00'}=1;
+ $time_stat{'10:00'}=0;
+ $time_stat{'12:00'}=0;
+ $time_stat{'14:00'}=0;
+ $time_stat{'16:00'}=10;
+
+
+ 
+ open(FH, '>', $EVENTS_FILE);
+ print FH "\$(function() {\n";
+ print FH " Morris.Donut({\n";
+ print FH "  element: 'morris-donut-chart',\n";
+ print FH "data: [\n";
+ foreach (keys %attacks_stat) {
+   print FH "{\n" ;
+   print FH "label: \"$_\",\n";
+   print FH "value: $attacks_stat{$_}\n";
+   print FH "},\n";
+ } 
+ print FH "{}],\n";
+ print FH "resize: true\n";
+ print FH "});\n";
+ print FH "\n";
+ print FH "Morris.Donut({\n";
+ print FH " element: 'morris-donut2-chart',\n";
+ print FH "data: [\n";
+ foreach (keys %ip_stat) {
+   print FH "{\n";
+   print FH "label: \"$_\",\n";
+   print FH "value: $ip_stat{$_}\n";
+   print FH "},\n";
+ }
+ print FH "{}],\n";
+ print FH "resize: true\n";
+ print FH "});\n";
+ 
+ print FH "\n";
+ print FH "Morris.Bar({\n";
+ print FH "element: 'morris-bar-chart',\n";
+ print FH "data: [";
+ foreach (keys %time_stat) {
+   print FH "{\n";
+   print FH "y: $_,\n";
+   print FH "a: $time_stat{$_},\n";
+   print FH "},";
+ }
+ print FH "{}],\n";
+ print FH "xkey: 'y'\n";
+ print FH "ykeys: ['a'],\n";
+ print FH "labels: ['Events'],\n";
+ print FH "hideHover: 'auto',\n";
+ print FH "resize: true\n";
+ print FH "});\n";
+ print FH "});\n";
+ close FH;
+
  return;
 }
 

@@ -39,6 +39,13 @@ sub view ($self) {
      return;
     } 
 
+#--------- settings menu ------------
+   if (defined $action && $action eq "settingsmenu") {
+     settings_menu($self);
+     return;
+   }
+
+
 #------------------- Menu --------------
     %sites=get_sites();
     $self->stash(result => $result,
@@ -133,6 +140,61 @@ sub delete_site($self)
  return;
 }
 
+
+######## settings_menu ######## 
+sub settings_menu($self)
+{
+     my $line;
+     my $port;
+     my $url;
+     my $server;
+     my $target;
+     my $protection1="";
+     my $protection2="";
+     my $protection3="";
+     my $protection4="";	
+     my $site=$self->param("site");      
+     my %policy=get_policy();
+     open my $fh, '<', "$SITE_DIR/$site.conf";
+     while(<$fh>) {
+      $line=$_;
+      if ($line =~ /listen/i) {
+     	(undef,$port)=split(" ",$line);
+        chop($port);
+      }
+      if ($line =~ /server_name/i) {
+	(undef,$server)=split(" ",$line);
+	chop($server);
+      }
+      if ($line =~ /proxy_pass/i) {
+        (undef,$target)=split(" ",$line);
+        chop($target);
+      }
+      if ($line =~ /add_header Strict-Transport-Security/i) {
+	$protection1="checked";
+      }
+      if ($line =~ /add_header X-Frame-Options/i) {
+        $protection2="checked";
+      }
+      if ($line =~ /add_header X-Content-Type-Options/i) {
+        $protection3="checked";
+      }
+      if ($line =~ /add_header X-XSS-Protection/i) {
+        $protection4="checked";
+      }
+     }
+     $self->stash(site => $site,
+                  policies => \%policy,
+		  server => $server,
+		  target => $target,
+	  	  port => $port,
+	  	  protection1 => $protection1,
+	          protection2 => $protection2,
+	  	  protection3 => $protection3,
+	          protection4 => $protection4);
+     $self->render(template => 'easywaf/settingssite');
+     return;
+}
 
 1;
 
