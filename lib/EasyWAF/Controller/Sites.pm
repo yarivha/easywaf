@@ -1,6 +1,7 @@
 package EasyWAF::Controller::Sites;
 use lib '/apps/easy_waf/lib';
 use Mojo::Base 'Mojolicious::Controller', -signatures;
+use File::Copy;
 use Common;
 
 my $msg;
@@ -59,7 +60,7 @@ sub view ($self) {
 ######## save_site #########
 sub save_site($self)
 {
- 
+#------ Declaration -----
  my $rc;
  my $update = $self->param("update");
  my $name = $self->param("name");
@@ -71,53 +72,63 @@ sub save_site($self)
  my $protection3 = $self->param("protection3");
  my $protection4 = $self->param("protection4");
  my $policy = $self->param("policy");
-
  my $file=$SITE_DIR."/".$name.".conf";
  my $log=$LOG_DIR."/".$name.".log";
- 
+
+ #------ Backup file is it's updated ----- 
+ if ($update eq "false") {
+   copy("$file","$file.backup"); 
+ }
+
+ #------ Fail is new file and name exist ----
  if ((-e $file) && ($update eq "false")) {
   $result="failed";
   $msg="Site name already exist";	 
   return;
  }
 
- `/bin/echo "#### $name ####" | /usr/bin/sudo /usr/bin/tee $file`;
- `/bin/echo "server {" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "   listen $port;" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "   server_name $server;" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "   access_log $log;" | /usr/bin/sudo /usr/bin/tee -a $file`;
-
+ #------ Write file ------
+ open(FH, '>', $file); 
+ print FH "#### $name ####\n";
+ print FH "server {\n";
+ print FH "   listen $port;\n";
+ print FH "   server_name $server;\n";
+ print FH "   access_log $log;\n";
  if ($policy ne "None") {
- `/bin/echo "   modsecurity on;" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "   modsecurity_rules_file $POLICY_DIR/$policy.conf;" | /usr/bin/sudo /usr/bin/tee -a $file`;
+  print FH "   modsecurity on;\n";
+  print FH "   modsecurity_rules_file $POLICY_DIR/$policy.conf;\n";
  }
 
  if ($protection1) {
-  `/bin/echo '   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;' | /usr/bin/sudo /usr/bin/tee -a $file`;
+  print FH "   add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\" always;\n";
  }
  if ($protection2) {
-  `/bin/echo '   add_header X-Frame-Options DENY;' | /usr/bin/sudo /usr/bin/tee -a $file`;
+  print FH "   add_header X-Frame-Options DENY;\n";
  }
  if ($protection3) {
-  `/bin/echo '   add_header X-Content-Type-Options nosniff;' | /usr/bin/sudo /usr/bin/tee -a $file`;
+  print FH "   add_header X-Content-Type-Options nosniff;\n";
  }
  if ($protection4) {
-  `/bin/echo '   add_header X-XSS-Protection "1; mode=block";' | /usr/bin/sudo /usr/bin/tee -a $file`;
+  print FH "   add_header X-XSS-Protection \"1; mode=block\";\n";
  }
- `/bin/echo "   location / {" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "     proxy_pass $target;" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "   }" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `/bin/echo "}" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ print FH "   location / {\n";
+ print FH "     proxy_pass $target;\n";
+ print FH "   }\n";
+ print FH "}\n";
+ close(FH);
 
  $rc = system("/usr/bin/sudo /usr/bin/systemctl restart nginx > /dev/null"); 
  if ($rc) {
    $result="failed";
-   $msg="Site $name Failed to Create";
-   unlink($SITE_DIR."/".$name.".conf");
+   $msg="Site $name Failed to Save";
+   unlink($file);
+   if ($update eq "false") {
+    move("$file.backup","$file");
+   }
  }
  else {
    $result="success";
-   $msg="Site $name Created Succesfully $protection1 $protection2 $protection3 $protection4 ";
+   $msg="Site $name Saved Succesfully";
  }
  return;
 }
