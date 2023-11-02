@@ -42,7 +42,7 @@ sub view ($self) {
 
 #---------- Create Cert Menu ---------  
   if (defined $action && $action eq "createcertmenu") {
-	$self->render(template => 'easywaf/createcert');
+	$self->render(template => 'easywaf/certcreate');
         return;
   }
 

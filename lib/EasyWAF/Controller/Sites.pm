@@ -36,7 +36,7 @@ sub view ($self) {
     if (defined $action && $action eq "createsitemenu") {
      my %policy=get_policy();
      $self->stash(policies => \%policy);
-     $self->render(template => 'easywaf/createsite');	  
+     $self->render(template => 'easywaf/sitecreate');	  
      return;
     } 
 
@@ -215,7 +215,7 @@ sub settings_menu($self)
 	  	  protection3 => $protection3,
 	          protection4 => $protection4,
 	  	  policy => $policy);
-     $self->render(template => 'easywaf/settingssite');
+     $self->render(template => 'easywaf/sitesettings');
      return;
 }
 

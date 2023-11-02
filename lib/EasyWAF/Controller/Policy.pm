@@ -42,7 +42,7 @@ sub view ($self) {
   if (defined $action && $action eq "createpolicymenu") {
 	my %rules=get_rules();  
 	$self->stash(rules => \%rules);  
-	$self->render(template => 'easywaf/createpolicy');
+	$self->render(template => 'easywaf/policycreate');
         return;
   }
 
@@ -120,7 +120,7 @@ sub settings_menu($self)
      $self->stash(policy => $policy,
 	     	  rules => \%rules,
                   policies => \%policy);
-     $self->render(template => 'easywaf/settingspolicy');
+     $self->render(template => 'easywaf/policysettings');
      return;
 }
 
