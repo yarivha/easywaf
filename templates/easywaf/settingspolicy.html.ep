@@ -1,0 +1,51 @@
+% layout 'default';
+
+
+<div class="row">
+ <div class="col-lg-10">
+  <div class="panel panel-default">
+   <div class="panel-heading">
+    <label><%= $policy %></label>
+   </div>
+   <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <form role="form">
+         <input type=hidden name="action" value="createpolicy">
+         <div class="form-group">
+          <label>Policy Name</label>
+ 	  <p class="form-control-static"><%= $policy %></p>
+         </div>
+	 <div class="form-group">
+           <label>ModSecurity Mode</label>
+	   <BR>
+           <label class="radio-inline">
+            <input type="radio" name="roleengine" id="optionsRadiosInline1" value="DetectionOnly" checked>DetectionOnly
+           </label>
+           <label class="radio-inline">
+            <input type="radio" name="roleengine" id="optionsRadiosInline2" value="ON">ON
+           </label>
+           <label class="radio-inline">
+            <input type="radio" name="roleengine" id="optionsRadiosInline3" value="OFF">OFF
+           </label>
+         </div>
+         <div class="form-group">
+          <label>Select the active protection for this policy.</label>
+	  <br>
+% foreach my $rule (keys (%$rules)) {
+          <label class="checkbox-inline">
+           <input type="checkbox" name="<%= $rule %>"><%= $rules->{$rule}[0] %>
+          </label>
+%}
+
+         </div>
+       <button type="submit" class="btn btn-default">Save Policy</button>
+       <button type="reset" class="btn btn-default">Reset</button>
+      </form>
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+

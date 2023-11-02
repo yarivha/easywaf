@@ -56,12 +56,13 @@
           </label>
          </div>
         </div>
+	<%= $policy %>
         <div class="form-group">
          <label>Security Policy</label>
-         <select class="form-control" name="policy">
+         <select class="form-control" name="policy" >
           <option>None</option>
-% foreach my $policy (keys (%$policies)) {
-          <option><%= $policy %></option>
+% foreach my $line (keys (%$policies)) {
+          <option><%= $line %></option>
 %}
          </select>
         </div>

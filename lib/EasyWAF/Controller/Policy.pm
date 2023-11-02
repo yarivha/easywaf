@@ -47,6 +47,13 @@ sub view ($self) {
   }
 
 
+#--------- settings menu ------------
+   if (defined $action && $action eq "settingsmenu") {
+     settings_menu($self);
+     return;
+   }
+
+
 #------------------- Menu --------------
   %policy=get_policy();
   $self->stash(result => $result,
@@ -101,6 +108,22 @@ sub deletepolicy($self)
  $msg="Policy $policy Deleted Succesfully ";
  return;
 }
+
+
+######## settings_menu ######## 
+sub settings_menu($self)
+{
+     my $policy=$self->param("policy");      
+     my %policy=get_policy();
+     my %rules=get_rules();
+
+     $self->stash(policy => $policy,
+	     	  rules => \%rules,
+                  policies => \%policy);
+     $self->render(template => 'easywaf/settingspolicy');
+     return;
+}
+
 
 
 1;

@@ -165,6 +165,8 @@ sub settings_menu($self)
      my $protection2="";
      my $protection3="";
      my $protection4="";	
+     my $policy_file;
+     my $policy="None";
      my $site=$self->param("site");      
      my %policy=get_policy();
      open my $fh, '<', "$SITE_DIR/$site.conf";
@@ -194,6 +196,14 @@ sub settings_menu($self)
       if ($line =~ /add_header X-XSS-Protection/i) {
         $protection4="checked";
       }
+      if ($line =~ /modsecurity_rules_file/i) {
+	(undef,$policy_file)=split(" ",$line);
+	chop($policy_file);
+	open my $fh, '<', $policy_file; 
+        my $policy = <$fh>; 
+        close $fh;
+	(undef,$policy,undef)=split(" ",$policy);
+      }
      }
      $self->stash(site => $site,
                   policies => \%policy,
@@ -203,7 +213,8 @@ sub settings_menu($self)
 	  	  protection1 => $protection1,
 	          protection2 => $protection2,
 	  	  protection3 => $protection3,
-	          protection4 => $protection4);
+	          protection4 => $protection4,
+	  	  policy => $policy);
      $self->render(template => 'easywaf/settingssite');
      return;
 }

@@ -30,8 +30,8 @@
       <tbody>
 % foreach my $policy (keys (%$policies)) {
         <tr>
-          <td><i class="fa fa-shield fa-2x" title="Settings"></i></td>
-	  <td><%= $policies->{$policy}[0] %></td>
+          <td><a href="?action=settingsmenu&policy=<%= $policy %>"><i class="fa fa-shield fa-2x" title="Settings"></i></a></td>
+	  <td><a href="?action=settingsmenu&policy=<%= $policy %>"><%= $policies->{$policy}[0] %></a></td>
  	  <td><a onclick="return confirm('Delete Policy <%= $policies->{$policy}[0] %> ?')" href="/policy?action=deletepolicy&policy=<%= $policies->{$policy}[0] %>"><i class="fa fa-trash fa-2x" title="Delete Policy"></i></a></td>
 
  %}
