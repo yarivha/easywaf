@@ -80,7 +80,7 @@ sub save_site($self)
    copy("$file","$file.backup"); 
  }
 
- #------ Fail is new file and name exist ----
+ #------ Fail if new file and name exist ----
  if ((-e $file) && ($update eq "false")) {
   $result="failed";
   $msg="Site name already exist";	 
@@ -121,9 +121,11 @@ sub save_site($self)
  if ($rc) {
    $result="failed";
    $msg="Site $name Failed to Save";
-   unlink($file);
-   if ($update eq "false") {
+   if ($update eq "true") {
     move("$file.backup","$file");
+   }
+   else {
+    unlink($file);
    }
  }
  else {
