@@ -21,7 +21,7 @@ sub view ($self) {
  	       title => 'Site Managment',
                url => '/sites');
 
-#----------- Create Site --------------  
+#----------- Save Site --------------  
     if (defined $action && $action eq "savesite") {
      save_site($self);
     } 
@@ -32,7 +32,7 @@ sub view ($self) {
     }
 
 
-#---------- create site menu -----------
+#---------- Create site menu -----------
     if (defined $action && $action eq "createsitemenu") {
      my %policy=get_policy();
      $self->stash(policies => \%policy);
