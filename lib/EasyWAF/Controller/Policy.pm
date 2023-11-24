@@ -128,7 +128,8 @@ sub settings_menu($self)
 
      $self->stash(policy => $policy,
 	     	  rules => \%rules,
-                  policies => \%policy);
+                  policies => \%policy,
+	  	  rules => \%rules);
      $self->render(template => 'easywaf/policysettings');
      return;
 }

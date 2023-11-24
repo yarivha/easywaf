@@ -75,8 +75,8 @@ sub save_site($self)
  my $file=$SITE_DIR."/".$name.".conf";
  my $log=$LOG_DIR."/".$name.".log";
 
- #------ Backup file is it's updated ----- 
- if ($update eq "false") {
+ #------ Backup config if it's updated ----- 
+ if ($update eq "true") {
    copy("$file","$file.backup"); 
  }
 
