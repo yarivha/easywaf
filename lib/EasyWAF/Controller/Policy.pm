@@ -26,9 +26,9 @@ sub view ($self) {
     mkpath $POLICY_DIR;
   }
 
-#---------- Create Policy ---------  
-  if (defined $action && $action eq "createpolicy") {
-   createpolicy($self);
+#---------- Save Policy ---------  
+  if (defined $action && $action eq "savepolicy") {
+   savepolicy($self);
   }
 
 #---------- Delete Policy ---------  
@@ -63,8 +63,9 @@ sub view ($self) {
   $self->render(template => 'easywaf/policy');  
 }
 
-######### createpolicy #########
-sub createpolicy($self) {
+######### savepolicy #########
+sub savepolicy($self) {
+ my $update = $self->param("update");
  my %rules=get_rules();
  my $name=$self->param("name");
  my $ruleengine=$self->param("roleengine");
@@ -73,26 +74,34 @@ sub createpolicy($self) {
  my $rule; 
  my $file="$POLICY_DIR/$name.conf";
 
- `echo "#--------------- $name ---------------" | /usr/bin/sudo /usr/bin/tee $file`;
- `echo "SecRuleEngine $ruleengine" | /usr/bin/sudo /usr/bin/tee -a $file`;
- `echo "SecRequestBodyAccess On" | /usr/bin/sudo /usr/bin/tee -a $file`;
+ #------ Backup config if it's updated ----- 
+ if ($update eq "true") {
+   copy("$file","$file.backup");
+ }
+
+#------ Write file ------
+ open(FH, '>', $file);
+ print FH "#--------------- $name ---------------"; 
+ print FH "SecRuleEngine $ruleengine";
+ print FH "SecRequestBodyAccess On";
  if ($enable_xml) {
- `echo 'SecRule REQUEST_HEADERS:Content-Type "^(?:application(?:/soap\+|/)|text/)xml" "id:'200000',phase:1,t:none,t:lowercase,pass,noog,ctl:requestBodyProcessor=XML"'  | /usr/bin/sudo /usr/bin/tee -a $file`;
+  print FH "SecRule REQUEST_HEADERS:Content-Type \"^(?:application(?:/soap\+|/)|text/)xml\" \"id:'200000',phase:1,t:none,t:lowercase,pass,noog,ctl:requestBodyProcessor=XML\"" ;
  }  
  if ($enable_json) {
-  `echo 'SecRule REQUEST_HEADERS:Content-Type "^application/json" "id:'200001',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=JSON"' | /usr/bin/sudo /usr/bin/tee -a $file`;
+  print FH "SecRule REQUEST_HEADERS:Content-Type \"^application/json\" \"id:'200001',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=JSON\"";
  }
- `echo 'SecRequestBodyLimit 13107200' | /usr/bin/sudo /usr/bin/tee -a $file`;
- `echo 'SecRequestBodyNoFilesLimit 131072' | /usr/bin/sudo /usr/bin/tee -a $file`;
- `echo 'SecRequestBodyLimitAction Reject' | /usr/bin/sudo /usr/bin/tee -a $file`;
- `echo 'SecRequestBodyJsonDepthLimit 512' | /usr/bin/sudo /usr/bin/tee -a $file`;
- `echo 'SecArgumentsLimit 1000' | /usr/bin/sudo /usr/bin/tee -a $file`;
+ print FH "SecRequestBodyLimit 13107200";
+ print FH "SecRequestBodyNoFilesLimit 131072";
+ print FH "SecRequestBodyLimitAction Reject";
+ print FH "SecRequestBodyJsonDepthLimit 512";
+ print FH "SecArgumentsLimit 1000";
 
  foreach $rule (keys %rules) {
    if (defined $self->param($rule)) {
-   `echo "include $RULES_DIR/$rule.conf" | /usr/bin/sudo /usr/bin/tee -a $file`;
+    print FH "include $RULES_DIR/$rule.conf";
    }
  }
+ close(FH);
  $result="success";
  $msg="Policy $name Created Succesfully ";  	 
  return; 
@@ -119,7 +128,8 @@ sub settings_menu($self)
 
      $self->stash(policy => $policy,
 	     	  rules => \%rules,
-                  policies => \%policy);
+                  policies => \%policy,
+	  	  rules => \%rules);
      $self->render(template => 'easywaf/policysettings');
      return;
 }

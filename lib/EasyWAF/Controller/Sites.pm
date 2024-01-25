@@ -21,7 +21,7 @@ sub view ($self) {
  	       title => 'Site Managment',
                url => '/sites');
 
-#----------- Create Site --------------  
+#----------- Save Site --------------  
     if (defined $action && $action eq "savesite") {
      save_site($self);
     } 
@@ -32,7 +32,7 @@ sub view ($self) {
     }
 
 
-#---------- create site menu -----------
+#---------- Create site menu -----------
     if (defined $action && $action eq "createsitemenu") {
      my %policy=get_policy();
      $self->stash(policies => \%policy);
@@ -75,12 +75,12 @@ sub save_site($self)
  my $file=$SITE_DIR."/".$name.".conf";
  my $log=$LOG_DIR."/".$name.".log";
 
- #------ Backup file is it's updated ----- 
- if ($update eq "false") {
+ #------ Backup config if it's updated ----- 
+ if ($update eq "true") {
    copy("$file","$file.backup"); 
  }
 
- #------ Fail is new file and name exist ----
+ #------ Fail if new file and name exist ----
  if ((-e $file) && ($update eq "false")) {
   $result="failed";
   $msg="Site name already exist";	 
@@ -121,9 +121,11 @@ sub save_site($self)
  if ($rc) {
    $result="failed";
    $msg="Site $name Failed to Save";
-   unlink($file);
-   if ($update eq "false") {
+   if ($update eq "true") {
     move("$file.backup","$file");
+   }
+   else {
+    unlink($file);
    }
  }
  else {

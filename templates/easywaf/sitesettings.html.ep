@@ -56,7 +56,6 @@
           </label>
          </div>
         </div>
-	<%= $policy %>
         <div class="form-group">
          <label>Security Policy</label>
          <select class="form-control" name="policy" >

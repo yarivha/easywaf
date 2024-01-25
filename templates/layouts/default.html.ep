@@ -181,7 +181,7 @@
                                      <a href="#" class="active"><i class="fa"></i> Black/White List</a>
                              </li>
 			     <li>
-                                     <a href="#" class="active"><i class="fa"></i> GeoLocation Rules</a>
+                                     <a href="/geoip" class="active"><i class="fa fa-flag"></i> GeoLocation Rules</a>
                              </li>
 			    </ul>
                         </li>

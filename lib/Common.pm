@@ -26,7 +26,7 @@ use warnings;
 use Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw();
-our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR $LOG_DIR   
+our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR $LOG_DIR $COUNTRY_LIST  
 		     get_certs get_policy get_sites get_rules waf_stat );
 
 
@@ -41,6 +41,7 @@ our $RULES_DIR="/usr/share/owasp-modsecurity-crs/rules";
 our $LOG_DIR="/var/log/nginx";
 our $MODSEC_LOG="/var/log/modsec_audit.log";
 our $EVENTS_FILE="/apps/easy_waf/public/js/events.js";
+our $COUNTRY_LIST="/etc/nginx/GeoIP/country.lst";
 
 ################# Common Subs ##################
 
