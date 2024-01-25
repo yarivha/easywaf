@@ -32,11 +32,11 @@
          </div>
          <div class="form-group">
           <label>Select the active protection for this policy.</label>
-	  <br>
 % foreach my $rule (keys (%$rules)) {
           <label class="checkbox-inline">
            <input type="checkbox" name="<%= $rule %>"><%= $rules->{$rule}[0] %>
           </label>
+	  <BR>
 %}
 
          </div>
