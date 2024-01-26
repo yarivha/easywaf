@@ -23,16 +23,16 @@
           <input class="form-control" name="server">
           <p class="help-block">WAF protected URL.</p>
          </div>
+	 <div class="form-group">
+          <label>Server Port</label>
+          <input class="form-control" name="port">
+          <p class="help-block">Listening port on the WAF.</p>
+        </div>
          <div class="form-group">
           <label>Target URL</label>
           <input class="form-control" name="target">
           <p class="help-block">The original un-protected URL of the site (e.g. https://www.google.com) </p>
          </div>
-         <div class="form-group">
-          <label>Target Port</label>
-          <input class="form-control" name="port">
-          <p class="help-block">Listening port on the WAF.</p>
-        </div>
         <div class="form-group">
          <label>Basic Protection</label>
          <div class="checkbox">
