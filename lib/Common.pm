@@ -36,7 +36,7 @@ our @EXPORT    = qw( $SITE_DIR $CERT_DIR $POLICY_DIR $RULES_DIR $LOG_DIR $COUNTR
 ############# Configuration dirs ###############
 our $SITE_DIR="/etc/nginx/conf.d";
 our $CERT_DIR="/etc/nginx/certs";
-our $POLICY_DIR="/etc/nginx/modsec";
+our $POLICY_DIR="/etc/nginx/naxsi";
 our $RULES_DIR="/usr/share/owasp-modsecurity-crs/rules";
 our $LOG_DIR="/var/log/nginx";
 our $MODSEC_LOG="/var/log/modsec_audit.log";

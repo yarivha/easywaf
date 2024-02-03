@@ -183,6 +183,9 @@
 			     <li>
                                      <a href="/geoip" class="active"><i class="fa fa-flag"></i> GeoLocation Rules</a>
                              </li>
+			     <li>
+				     <a href="/rules" class="active"><i class="fa fa-list-alt"></i> Rules Editor</a>
+			     </li>
 			    </ul>
                         </li>
 			<li>
